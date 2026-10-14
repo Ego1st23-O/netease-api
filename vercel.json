@@ -1,0 +1,35 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "app": {
+      "root": ".",
+      "framework": "vite"
+    },
+    "backend": {
+      "root": "deploy/docker/backend",
+      "framework": "express"
+    },
+    "wallpaper-helper": {
+      "root": "packaging/windows/wallpaper-helper",
+      "runtime": "rust"
+    },
+    "sync-server": {
+      "root": "sync-server",
+      "framework": "hono"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": {
+        "service": "backend"
+      }
+    },
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "app"
+      }
+    }
+  ]
+}
